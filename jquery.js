@@ -29,7 +29,7 @@
   }
 
   ready(function(){
-    fetch("https://raw.githubusercontent.com/nanangkus/jquery/refs/heads/main/store.json", {
+    fetch("https://cdn.jsdelivr.net/gh/nanangkus/jquery@refs/heads/main/store.json", {
       cache: "no-store"
     })
     .then(function(r){ return r.json(); })
