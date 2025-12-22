@@ -6,7 +6,7 @@
   }
 
   function inject(data){
-    var el = d.getElementById("jquery-content");
+    var el = d.getElementById("bunker-content");
     if (!el || !data || !data.template) return;
 
     var blocks = data.template.slice();
