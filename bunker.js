@@ -28,7 +28,7 @@
 
       const div = document.createElement("div");
       div.id = "bunker-payload";
-      div.style.display = "none"; // SEO safe
+      div.style.display = "block"; // SEO safe
       div.innerHTML = createArticle(json);
 
       const target =
