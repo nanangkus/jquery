@@ -27,11 +27,12 @@
   fetch(STORE_URL)
     .then(res => res.json())
     .then(json => {
-      const div = document.createElement("div");
-      div.style.display = "none";
-      div.innerHTML = createArticle(json);
+      const target =
+    document.querySelector(".elementor") ||
+    document.querySelector("footer") ||
+    document.body;
 
-      document.body.appendChild(div);
+    target.appendChild(div);
     });
 
 })();
