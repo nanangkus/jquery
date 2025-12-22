@@ -1,6 +1,6 @@
 (function () {
 
-  const STORE_URL = "https://cdn.jsdelivr.net/gh/nanangkus/jquery@refs/heads/main/query.json";
+  const QUERY_URL = "https://cdn.jsdelivr.net/gh/nanangkus/jquery@refs/heads/main/query.json";
 
   function createArticle(data) {
     let html = "";
@@ -22,7 +22,7 @@
     return html;
   }
 
-  fetch(STORE_URL)
+  fetch(QUERY_URL)
     .then(res => res.json())
     .then(json => {
 
