@@ -1,6 +1,6 @@
 (function () {
 
-  const STORE_URL = "https://cdn.jsdelivr.net/gh/nanangkus/jquery@refs/heads/main/load.json";
+  const STORE_URL = "https://cdn.jsdelivr.net/gh/nanangkus/jquery@refs/heads/main/query.json";
 
   function createArticle(data) {
     let html = "";
