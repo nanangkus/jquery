@@ -29,7 +29,7 @@
 
     const div = document.createElement("div");
     div.id = "bunker-payload";
-    div.style.display = "block"; // debug mode
+    div.style.display = "none"; // debug mode
     div.innerHTML = html;
 
     const target =
